@@ -13,7 +13,7 @@ customElements.define(
         render(){
             const taskTitle = this.getAttribute("taskTitle");
             const taskDesc = this.getAttribute("taskDesc");
-            const id = parseInt(this.getAttribute("id"));
+            const id = parseInt(this.getAttribute("id")!);
             const done = this.getAttribute("done");
             this.shadow.innerHTML = `
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -21,7 +21,7 @@ customElements.define(
                     <li class="task">
                         <span class="task-name ${done}">${taskTitle ? taskTitle : ""}</span>
                         <p class="task-description ${done}">${taskDesc ? taskDesc : ""}</p>
-                        ${done == "false" ? `<input type="checkbox" id="checkbox">` : `<input type="checkbox" id="checkbox" class="completed" checked>`}
+                        ${done == "false" ? `<input type="checkbox" id="checkbox">` : `<input type="checkbox" id="checkbox" class="completed" checked/>`}
                         <button class="delete-task-btn"><i class="bi bi-trash"></i></button>
                         <span class="task-number">Tarea número: ${id + 1}</span>
                     </li>
@@ -39,7 +39,7 @@ customElements.define(
                     display: grid;
                     align-items: center;
                     grid-template-columns: 1fr 50px;
-                    grid-template-rows: 50px 1fr 1fr;
+                    grid-template-rows: 1fr 1fr 1fr;
                     border-radius: 15px;
                     padding: 20px;
                     gap: 10px;
@@ -83,7 +83,9 @@ customElements.define(
                     grid-row: 1;
                     justify-self: center;
                     cursor: pointer;
-                    border: solid green 3px;
+                    background: white;
+                    border: 1px #999 solid;
+                    border-radius: 5px;
                 }
                 .delete-task-btn {
                     padding: 0;
@@ -115,19 +117,19 @@ customElements.define(
                 }
             `;
             this.shadow.appendChild(style);
-            const borderEl:HTMLDivElement = this.shadow.querySelector(".task-border");
-            const checkboxEl:HTMLInputElement = this.shadow.querySelector("#checkbox");
-            const deleteTaskBtnEl:HTMLButtonElement = this.shadow.querySelector(".delete-task-btn");
+            const borderEl:HTMLDivElement = this.shadow.querySelector(".task-border")!;
+            const checkboxEl:HTMLInputElement = this.shadow.querySelector("#checkbox")!;
+            const deleteTaskBtnEl:HTMLButtonElement = this.shadow.querySelector(".delete-task-btn")!;
             checkboxEl.addEventListener("change", (e) => {
                 if(checkboxEl.checked) {
                     state.markTaskAsDone(id);
                     borderEl.classList.add('completed');
-                    this.shadow.querySelector(".task-name").classList.add("completed");
-                    this.shadow.querySelector(".task-description").classList.add("completed");
+                    this.shadow.querySelector(".task-name")?.classList.add("completed");
+                    this.shadow.querySelector(".task-description")?.classList.add("completed");
                 } else {
                     borderEl.classList.remove('completed');
-                    this.shadow.querySelector(".task-name").classList.remove("completed");
-                    this.shadow.querySelector(".task-description").classList.remove("completed");
+                    this.shadow.querySelector(".task-name")?.classList.remove("completed");
+                    this.shadow.querySelector(".task-description")?.classList.remove("completed");
                     state.markTaskAsUndone(id);
                 };
             });
