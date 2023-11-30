@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <script async type="module" src="./main.ts"></script>
+    <title>Tareas Pendientes</title>
+</head>
+<body>
+    <section class="page-container">
+        <h1 class="title">Tareas Pendientes</h1>
+        <div class="form-container">
+            <h2 class="form-title">Agregar nueva tarea</h2>
+            <form action="" class="new-task-form">
+                <div class="form-input-container">
+                    <label for="task-name" class="form-label">Nombre de la tarea:</label>
+                    <input id="task-name" class="form-input" type="text" placeholder="Hacer las compras." required/>
+                </div>
+                <div class="form-input-container">
+                    <label for="task-desc" class="form-label">Descripción de la tarea:</label>
+                    <textarea id="task-desc" class="form-textarea" placeholder="Lista de productos..."></textarea>
+                </div>
+                <button type="submit" class="form-btn">Crear tarea</button>
+            </form>
+        </div>
+        <custom-tasks-list></custom-tasks-list>
+    </section>
+</body>
+</html>
